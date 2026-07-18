@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "description": "Shared lesson metadata schema for future modules. Copy lesson-template.js and fill in fields.",
+  "lessonFields": {
+    "id": "string — unique lesson id (kebab-case)",
+    "moduleId": "string — parent module id",
+    "title": "{ it: string, en: string }",
+    "description": "{ it: string, en: string }",
+    "level": "A1 | A2 | B1 | B2",
+    "order": "number — display order within module",
+    "emoji": "string — optional emoji icon",
+    "characterIds": "string[] — character keys used in this lesson",
+    "vocabularyIds": "string[] — optional vocab refs",
+    "audioPlaceholders": "boolean — true if audioUrl fields may be filled later",
+    "exercises": "Exercise[] — see exercise types in ExerciseRenderer"
+  },
+  "exerciseTypes": [
+    "multiple-choice-image",
+    "match-word-image",
+    "fill-blank",
+    "order-words",
+    "translation",
+    "true-false",
+    "audio-match",
+    "dialogue-choice"
+  ],
+  "moduleFields": {
+    "id": "string",
+    "title": "{ it, en }",
+    "description": "{ it, en }",
+    "emoji": "string",
+    "color": "hex color",
+    "gradient": "CSS gradient string",
+    "rainbowFriendly": "boolean",
+    "unlockedByDefault": "boolean",
+    "units": "Unit[] — same shape as classic units.js"
+  }
+}

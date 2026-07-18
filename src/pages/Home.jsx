@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
-import { Lock, CheckCircle2, Star } from 'lucide-react'
+import { Lock, CheckCircle2, Star, Sparkles } from 'lucide-react'
 import Chloe from '../components/Chloe'
+import CharacterAvatar from '../components/CharacterAvatar'
 import ProgressBar from '../components/ProgressBar'
 import { UNITS, getUnitProgress } from '../data/units'
 import { useGameStore } from '../store/gameStore'
 import { pick, useT } from '../lib/i18n'
 import { useEffect } from 'react'
+import manfredoModule from '../modules/manfredo-alessandros'
 
 export default function Home() {
   const uiLang = useGameStore((s) => s.uiLang)
@@ -20,9 +22,16 @@ export default function Home() {
     touchStreak()
   }, [touchStreak])
 
+  const manfredoUnit = manfredoModule.units[0]
+  const manfredoProg = getUnitProgress(manfredoUnit, completedLessons)
+
   return (
     <div className="space-y-6">
-      <section className="flex flex-col sm:flex-row items-center gap-4 card-kid p-4 sm:p-5">
+      <section className="flex flex-col sm:flex-row items-center gap-4 card-kid p-4 sm:p-5 relative overflow-hidden">
+        <div
+          className="bg-blob w-32 h-32 -top-8 -right-8 bg-violet-300"
+          aria-hidden
+        />
         <Chloe
           mood="wave"
           size="md"
@@ -32,7 +41,7 @@ export default function Home() {
               : `Ciao ${childName || 'amico'}! Scegli una lezione 🌟`
           }
         />
-        <div className="flex-1 text-center sm:text-left">
+        <div className="flex-1 text-center sm:text-left relative">
           <h2 className="text-2xl font-black text-chloe-purple">
             {uiLang === 'en' ? 'Your learning path' : 'Il tuo percorso'}
           </h2>
@@ -43,6 +52,42 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      {/* New module card — Manfredo & Alessandros */}
+      <Link to="/manfredo" className="module-card-rainbow block p-4 sm:p-5">
+        <div className="relative flex flex-col sm:flex-row items-center gap-4">
+          <div className="flex -space-x-3">
+            <CharacterAvatar characterId="manfredo" size="md" />
+            <CharacterAvatar characterId="alessandro-1" size="sm" className="mt-4" />
+            <CharacterAvatar characterId="alessandro-2" size="sm" className="mt-2" />
+            <CharacterAvatar characterId="alessandro-3" size="sm" className="mt-4" />
+          </div>
+          <div className="flex-1 text-center sm:text-left min-w-0">
+            <p className="font-extrabold text-sm text-pink-600 flex items-center justify-center sm:justify-start gap-1">
+              <Sparkles className="w-4 h-4" />
+              {uiLang === 'en' ? 'New module' : 'Nuovo modulo'} · LGBTQ+ 🏳️‍🌈
+            </p>
+            <h3 className="text-xl sm:text-2xl font-black text-chloe-ink truncate">
+              {pick(manfredoModule.title, uiLang)}
+            </h3>
+            <p className="font-bold text-chloe-ink/65 text-sm mt-0.5">
+              {pick(manfredoModule.description, uiLang)}
+            </p>
+            <div className="mt-2 max-w-xs mx-auto sm:mx-0">
+              <ProgressBar
+                value={manfredoProg.done}
+                max={manfredoProg.total}
+                label={`${manfredoProg.done}/${manfredoProg.total}`}
+                showPct
+                color="bg-gradient-to-r from-pink-400 via-amber-300 to-sky-400"
+              />
+            </div>
+          </div>
+          <span className="btn-kid btn-rainbow px-4 py-2 text-sm text-white shrink-0">
+            {t('openModule')}
+          </span>
+        </div>
+      </Link>
 
       <div className="relative space-y-8">
         {/* Decorative path line */}

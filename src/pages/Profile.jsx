@@ -1,5 +1,6 @@
 import Chloe from '../components/Chloe'
 import ProgressBar from '../components/ProgressBar'
+import ThemeToggle from '../components/ThemeToggle'
 import { BADGES } from '../data/badges'
 import { useGameStore, getLevel, xpToNextLevel } from '../store/gameStore'
 import { pick, useT } from '../lib/i18n'
@@ -51,6 +52,14 @@ export default function Profile() {
               color="bg-chloe-yellow"
             />
           </div>
+        </div>
+      </section>
+
+      <section className="card-kid p-5 space-y-3">
+        <h3 className="text-xl font-black">{t('settings')}</h3>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="font-bold text-chloe-ink/70">{t('rainbowTheme')}</p>
+          <ThemeToggle />
         </div>
       </section>
 

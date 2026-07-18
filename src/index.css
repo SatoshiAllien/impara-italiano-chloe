@@ -20,6 +20,14 @@
   --color-xp: #fbbf24;
   --color-success: #22c55e;
   --color-warn: #f59e0b;
+  --color-duo-green: #58cc02;
+  --color-duo-green-dark: #46a302;
+  --color-rainbow-1: #e40303;
+  --color-rainbow-2: #ff8c00;
+  --color-rainbow-3: #ffed00;
+  --color-rainbow-4: #008026;
+  --color-rainbow-5: #24408e;
+  --color-rainbow-6: #732982;
 }
 
 * {
@@ -38,6 +46,46 @@ body {
   background: linear-gradient(180deg, #f3f0ff 0%, #fff9f0 55%, #e0f2fe 100%);
   color: var(--color-chloe-ink);
   overflow-x: hidden;
+  transition: background 0.35s ease;
+}
+
+/* LGBTQ+ rainbow theme (opt-in via data-theme="rainbow" on <html>) */
+html[data-theme="rainbow"] body {
+  background:
+    linear-gradient(
+      180deg,
+      #fff0f5 0%,
+      #fff7ed 18%,
+      #fefce8 36%,
+      #ecfdf5 54%,
+      #eff6ff 72%,
+      #f5f3ff 100%
+    );
+}
+
+html[data-theme="rainbow"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff6b9d, #a78bfa, #38bdf8);
+}
+
+html[data-theme="rainbow"] .card-kid {
+  border-color: #fbcfe8;
+  box-shadow:
+    0 8px 24px rgba(244, 114, 182, 0.12),
+    0 0 0 1px rgba(167, 139, 250, 0.08);
+}
+
+html[data-theme="rainbow"] header,
+html[data-theme="rainbow"] nav {
+  border-color: #f9a8d4 !important;
+}
+
+html[data-theme="rainbow"] .btn-primary {
+  background: linear-gradient(135deg, #ff6b9d 0%, #a78bfa 45%, #38bdf8 100%);
+  box-shadow: 0 6px 0 #7c3aed;
+}
+
+html[data-theme="rainbow"] .btn-primary:active:not(:disabled) {
+  box-shadow: 0 2px 0 #7c3aed;
 }
 
 /* Soft kid-friendly scrollbar */
@@ -158,10 +206,95 @@ body {
   box-shadow: 0 8px 24px rgba(124, 92, 252, 0.08);
 }
 
+/* Duolingo-style solid rounded CTA */
+.btn-duo {
+  background: linear-gradient(180deg, #58cc02 0%, #46a302 100%);
+  color: white;
+  box-shadow: 0 6px 0 #3d8c02;
+  border-radius: 1.25rem;
+}
+.btn-duo:active:not(:disabled) {
+  box-shadow: 0 2px 0 #3d8c02;
+  transform: translateY(4px) scale(0.98);
+}
+
+/* LGBTQ+ rainbow button */
+.btn-rainbow {
+  background: linear-gradient(
+    90deg,
+    #e40303 0%,
+    #ff8c00 16%,
+    #ffed00 33%,
+    #008026 50%,
+    #24408e 66%,
+    #732982 83%,
+    #e40303 100%
+  );
+  background-size: 200% 100%;
+  color: white;
+  box-shadow: 0 6px 0 #5b21b6;
+  animation: rainbow-shift 4s linear infinite;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+.btn-rainbow:active:not(:disabled) {
+  box-shadow: 0 2px 0 #5b21b6;
+  transform: translateY(4px) scale(0.98);
+}
+
+@keyframes rainbow-shift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Playful module card (Home → Manfredo) */
+.module-card-rainbow {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, #ff6b9d, #fbbf24, #4ade80, #38bdf8, #a78bfa, #f472b6) border-box;
+  box-shadow: 0 10px 28px rgba(244, 114, 182, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.module-card-rainbow:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 14px 32px rgba(124, 92, 252, 0.22);
+}
+.module-card-rainbow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 107, 157, 0.12),
+    rgba(251, 191, 36, 0.1),
+    rgba(74, 222, 128, 0.1),
+    rgba(56, 189, 248, 0.12),
+    rgba(167, 139, 250, 0.12)
+  );
+  pointer-events: none;
+}
+
+/* Soft gradient blobs (decorative) */
+.bg-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(40px);
+  opacity: 0.45;
+  pointer-events: none;
+  animation: float 5s ease-in-out infinite;
+}
+
 /* Focus visible for a11y */
 :focus-visible {
   outline: 3px solid #7c5cfc;
   outline-offset: 3px;
+}
+
+html[data-theme="rainbow"] :focus-visible {
+  outline-color: #f472b6;
 }
 
 /* Reduce motion preference */

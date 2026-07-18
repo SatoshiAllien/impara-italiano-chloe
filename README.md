@@ -1,6 +1,8 @@
-# Impara l'italiano con Chloe 🦉
+# Impara l'italiano con Chloe 🦉🌈
 
 Web app educativa per bambini (6–12 anni) che insegna **italiano per anglofoni** e **inglese per italofoni**, con gamification ispirata a Duolingo e tono sempre incoraggiante.
+
+**Novità:** modulo **“Impara con Manfredo e i suoi Alessandri”** — percorso A1 colorato, inclusivo e LGBTQ+ friendly, con icone personaggio sostituibili.
 
 ## Stack
 
@@ -31,28 +33,121 @@ npm run preview
 
 | Area | Dettaglio |
 |------|-----------|
-| **Percorso** | Skill tree con 3 unità: Saluti, Famiglia, Animali |
-| **Lezioni** | 4 lezioni × unità + test finale (8 esercizi circa) |
-| **Esercizi** | Scelta multipla, audio-match, vero/falso, traduzione, fill-blank, ordina parole, abbinamento |
+| **Percorso Chloe** | Skill tree con 3 unità: Saluti, Famiglia, Animali |
+| **Modulo Manfredo** | Intro, personaggi, dialoghi, vocabolario A1, 4 lezioni + test |
+| **Lezioni** | Esercizi multipli (scelta, audio-match, fill-blank, …) |
 | **XP / Cuori / Streak** | +10 XP a risposta, bonus lezione perfetta, 5 cuori, serie giornaliera |
-| **Shop** | Gemme per skin/cappelli di Chloe |
-| **Badge** | Prima lezione, streak, XP, unità, shopper… |
-| **Genitori** | PIN (default `1234`), stats, timer opzionale, suoni, reset |
+| **Tema arcobaleno** | Toggle LGBTQ+ friendly (header) |
+| **Icone custom** | Sostituisci PNG/SVG senza toccare il codice |
+| **Shop / Badge / Genitori** | Gemme, skin Chloe, PIN area genitori |
+
+## Modulo: Manfredo & Alessandri
+
+Percorso parallelo al curriculum classico:
+
+1. **Intro sceneggiata** con Manfredo e gli Alessandri  
+2. **Profili personaggio** (Manfredo, Alessandro Blu / Verde / Rosa)  
+3. **Dialoghi A1** amichevoli  
+4. **Liste vocabolario** (saluti, cortesia, emozioni, famiglia arcobaleno)  
+5. **Lezioni interattive** compatibili con il motore esercizi esistente  
+6. **Placeholder audio** (`audioUrl: null` → speech synthesis)
+
+### Navigazione
+
+- Bottom nav: **Manfredo** (icona arcobaleno)
+- Home: card colorata “Nuovo modulo”
+- Route: `/manfredo`
+- Lezioni: `/lesson/manfredo-alessandros/<lessonId>`
+
+### Uso rapido
+
+1. Completa l’onboarding  
+2. Dalla Home apri la card **Manfredo & Alessandri**, oppure tocca **Manfredo** nella nav  
+3. Scorri l’intro, esplora Personaggi / Dialoghi / Vocabolario  
+4. Avvia le lezioni in ordine  
+5. (Opzionale) attiva il **tema arcobaleno** dal toggle in alto  
+
+## Icone personalizzate (Manfredo + Alessandri)
+
+Sostituisci i file placeholder — **nessuna modifica al codice**:
+
+| Personaggio | Cartella | Nomi file accettati |
+|-------------|----------|---------------------|
+| Manfredo | `public/assets/manfredo/` | `manfredo.svg`, `manfredo.png`, `.webp`, `.jpg` |
+| Alessandro Blu | `public/assets/alessandros/` | `alessandro-1.svg` / `.png` … |
+| Alessandro Verde | `public/assets/alessandros/` | `alessandro-2.svg` / `.png` … |
+| Alessandro Rosa | `public/assets/alessandros/` | `alessandro-3.svg` / `.png` … |
+
+Suggerimenti:
+
+- Preferisci **quadrate** (es. 256×256 o 512×512), volto centrato  
+- SVG o PNG con trasparenza  
+- Dopo la sostituzione, ricarica l’app (hard refresh se serve)
+
+Loader: `src/lib/characterIcons.js` (`getCharacterIconUrl`, fallback emoji).
+
+## Tema Duolingo + arcobaleno
+
+- Bottoni arrotondati “kid” con ombra 3D (stile Duolingo)  
+- Gradienti vivaci e animazioni soft (`pop-in`, `float`, `bounce-soft`)  
+- Toggle **Arcobaleno 🏳️‍🌈** nell’header → `data-theme="rainbow"` su `<html>`  
+- Preferenza salvata in `localStorage` (`theme` nello store Zustand)
+
+Config colori: `src/index.css` (`@theme`, `.btn-rainbow`, `.module-card-rainbow`, `html[data-theme="rainbow"]`).
+
+## Espandere lezioni e moduli
+
+Struttura modulare:
+
+```
+src/modules/
+  registry.js                 # registra nuovi moduli
+  common-lessons/
+    lesson-template.js        # copia-incolla per nuove lezioni
+    metadata.json             # schema campi lesson/module
+  manfredo-alessandros/
+    index.js                  # export del modulo
+    intro.js
+    characters.js
+    dialogues.js
+    vocabulary.js
+    lessons.js                # unità + esercizi
+    metadata.json
+```
+
+### Aggiungere un modulo
+
+1. Crea `src/modules/mio-modulo/` (usa `common-lessons/lesson-template.js`)  
+2. Esporta un oggetto modulo (vedi `manfredo-alessandros/index.js`)  
+3. Registralo in `src/modules/registry.js` → array `MODULES`  
+4. Se l’unità deve essere giocabile da `/lesson/...`, importala anche in `src/data/units.js` → `getAllCurriculumUnits()`  
+5. (Opzionale) aggiungi route/card dedicata  
+
+Campi chiave modulo: `id`, `title`, `description`, `emoji`, `color`, `gradient`, `rainbowFriendly`, `unlockedByDefault`, `units`.
 
 ## Struttura cartelle
 
 ```
+public/assets/
+  manfredo/            # icone custom Manfredo
+  alessandros/         # icone custom Alessandri
 src/
-  components/          # Chloe, layout, progress, confetti, esercizi
-  data/                # units.js, badges.js, shop.js
-  lib/                 # storage, audio, i18n
-  pages/               # Onboarding, Home, Lesson, Profile, Shop, Parents
-  store/gameStore.js   # Zustand + persist
+  components/          # Chloe, Layout, CharacterAvatar, ThemeToggle, esercizi
+  data/                # units.js (classico + merge moduli), badges, shop
+  lib/                 # storage, audio, i18n, characterIcons
+  modules/             # moduli espandibili
+  pages/               # Home, Manfredo, Lesson, Profile, Shop, Parents…
+  store/gameStore.js   # Zustand + tema + progressi
 ```
 
-## Estendere i contenuti
+## Screenshot (placeholder)
 
-Aggiungi unità in `src/data/units.js` seguendo lo schema esistente. Ogni esercizio ha un `type` supportato da `ExerciseRenderer`. Campo opzionale `audioUrl` per file audio reali.
+> Aggiungi qui le tue screenshot dopo il primo run:
+
+- `docs/screenshots/home.png` — Home con card Manfredo  
+- `docs/screenshots/manfredo.png` — Hub modulo arcobaleno  
+- `docs/screenshots/lesson.png` — Esercizio in corso  
+- `docs/screenshots/rainbow-theme.png` — Tema LGBTQ+ attivo  
 
 ## Persistenza e backend futuro
 
@@ -61,10 +156,10 @@ Il layer `src/lib/storage.js` espone `setStorageAdapter()` per collegare Firebas
 
 ## Sicurezza bambini
 
-- Nessuna pubblicità o tracker
-- Nessun link esterno nell’area bambino
-- Area genitori protetta da PIN
-- Dati solo locali (demo COPPA/GDPR-kids friendly by design)
+- Nessuna pubblicità o tracker  
+- Nessun link esterno nell’area bambino  
+- Area genitori protetta da PIN  
+- Dati solo locali (demo COPPA/GDPR-kids friendly by design)  
 
 ## Licenza
 

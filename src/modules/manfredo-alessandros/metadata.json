@@ -1,0 +1,26 @@
+{
+  "id": "manfredo-alessandros",
+  "title": {
+    "it": "Impara con Manfredo e i suoi Alessandri",
+    "en": "Learn with Manfredo and his Alessandros"
+  },
+  "level": "A1",
+  "rainbowFriendly": true,
+  "unlockedByDefault": true,
+  "route": "/manfredo",
+  "unitIds": ["manfredo-alessandros"],
+  "lessonIds": ["manfredo-1", "manfredo-2", "manfredo-3", "manfredo-4", "manfredo-test"],
+  "characterIds": ["manfredo", "alessandro-1", "alessandro-2", "alessandro-3"],
+  "iconFolders": {
+    "manfredo": "public/assets/manfredo/",
+    "alessandros": "public/assets/alessandros/"
+  },
+  "content": {
+    "intro": true,
+    "characters": true,
+    "dialogues": true,
+    "vocabulary": true,
+    "exercises": true,
+    "audioPlaceholders": true
+  }
+}

@@ -1,13 +1,21 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import { Home, User, ShoppingBag, Shield } from 'lucide-react'
+import { Home, User, ShoppingBag, Shield, Rainbow } from 'lucide-react'
 import { useGameStore } from '../store/gameStore'
 import { useT } from '../lib/i18n'
 import { unlockAudio } from '../lib/audio'
+import ThemeToggle from './ThemeToggle'
 
 const linkClass = ({ isActive }) =>
-  `flex flex-col items-center justify-center gap-0.5 px-3 py-2 rounded-2xl min-w-[64px] font-bold text-xs sm:text-sm transition-colors ${
+  `flex flex-col items-center justify-center gap-0.5 px-2 sm:px-3 py-2 rounded-2xl min-w-[56px] sm:min-w-[64px] font-bold text-[11px] sm:text-sm transition-all ${
     isActive
-      ? 'bg-violet-100 text-chloe-purple'
+      ? 'bg-violet-100 text-chloe-purple scale-105'
+      : 'text-chloe-ink/60 hover:bg-white/60'
+  }`
+
+const rainbowLinkClass = ({ isActive }) =>
+  `flex flex-col items-center justify-center gap-0.5 px-2 sm:px-3 py-2 rounded-2xl min-w-[56px] sm:min-w-[64px] font-bold text-[11px] sm:text-sm transition-all ${
+    isActive
+      ? 'text-white shadow-md scale-105'
       : 'text-chloe-ink/60 hover:bg-white/60'
   }`
 
@@ -16,6 +24,7 @@ export default function Layout() {
   const xp = useGameStore((s) => s.xp)
   const gems = useGameStore((s) => s.gems)
   const streak = useGameStore((s) => s.streak)
+  const theme = useGameStore((s) => s.theme)
   const t = useT(uiLang)
 
   return (
@@ -27,28 +36,29 @@ export default function Layout() {
       <header className="sticky top-0 z-40 bg-white/90 backdrop-blur border-b-2 border-violet-100 px-3 sm:px-4 py-2">
         <div className="mx-auto max-w-3xl flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
-            <span className="text-2xl" aria-hidden>
-              🦉
+            <span className="text-2xl animate-bounce-soft" aria-hidden>
+              {theme === 'rainbow' ? '🌈' : '🦉'}
             </span>
             <h1 className="truncate text-base sm:text-lg font-black text-chloe-purple">
               Chloe
             </h1>
           </div>
-          <div className="flex items-center gap-2 sm:gap-3 text-sm font-extrabold">
+          <div className="flex items-center gap-1.5 sm:gap-3 text-sm font-extrabold">
+            <ThemeToggle compact />
             <span
-              className="inline-flex items-center gap-1 rounded-full bg-amber-50 border-2 border-amber-200 px-2.5 py-1 text-amber-700"
+              className="inline-flex items-center gap-1 rounded-full bg-amber-50 border-2 border-amber-200 px-2 sm:px-2.5 py-1 text-amber-700"
               title={t('xp')}
             >
               ⭐ {xp}
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full bg-sky-50 border-2 border-sky-200 px-2.5 py-1 text-sky-700"
+              className="inline-flex items-center gap-1 rounded-full bg-sky-50 border-2 border-sky-200 px-2 sm:px-2.5 py-1 text-sky-700"
               title={t('gems')}
             >
               💎 {gems}
             </span>
             <span
-              className="inline-flex items-center gap-1 rounded-full bg-orange-50 border-2 border-orange-200 px-2.5 py-1 text-orange-700"
+              className="inline-flex items-center gap-1 rounded-full bg-orange-50 border-2 border-orange-200 px-2 sm:px-2.5 py-1 text-orange-700"
               title={t('streak')}
             >
               🔥 {streak}
@@ -66,10 +76,22 @@ export default function Layout() {
         className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur border-t-2 border-violet-100 pb-[env(safe-area-inset-bottom)]"
         aria-label="Navigazione principale"
       >
-        <div className="mx-auto max-w-3xl flex items-stretch justify-around px-2 py-2">
+        <div className="mx-auto max-w-3xl flex items-stretch justify-around px-1 sm:px-2 py-2">
           <NavLink to="/" end className={linkClass}>
             <Home className="w-6 h-6" />
             {t('home')}
+          </NavLink>
+          <NavLink
+            to="/manfredo"
+            className={(props) => {
+              const base = rainbowLinkClass(props)
+              return props.isActive
+                ? `${base} btn-rainbow`
+                : base
+            }}
+          >
+            <Rainbow className="w-6 h-6" />
+            {t('manfredo')}
           </NavLink>
           <NavLink to="/profile" className={linkClass}>
             <User className="w-6 h-6" />

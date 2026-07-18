@@ -7,7 +7,11 @@
  * - it-for-en: learn Italian (prompts mostly EN, answers IT)
  * - en-for-it: learn English (prompts mostly IT, answers EN)
  * Content stores both languages; UI adapts via direction.
+ *
+ * Modular units (e.g. Manfredo) are merged via getAllCurriculumUnits().
  */
+
+import { MANFREDO_UNIT } from '../modules/manfredo-alessandros/lessons.js'
 
 /** @typedef {'multiple-choice-image'|'match-word-image'|'fill-blank'|'order-words'|'translation'|'true-false'|'audio-match'} ExerciseType */
 
@@ -1286,8 +1290,13 @@ export const UNITS = [
   },
 ]
 
+/** All playable units: classic path + expandable modules */
+export function getAllCurriculumUnits() {
+  return [...UNITS, MANFREDO_UNIT]
+}
+
 export function getUnit(unitId) {
-  return UNITS.find((u) => u.id === unitId)
+  return getAllCurriculumUnits().find((u) => u.id === unitId)
 }
 
 export function getLesson(unitId, lessonId) {

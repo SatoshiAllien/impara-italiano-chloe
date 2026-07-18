@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Alessandro Pink placeholder">
+  <defs>
+    <linearGradient id="a3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#fb7185"/>
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="60" fill="url(#a3)"/>
+  <circle cx="64" cy="58" r="36" fill="#fdf2f8"/>
+  <circle cx="52" cy="54" r="5" fill="#831843"/>
+  <circle cx="76" cy="54" r="5" fill="#831843"/>
+  <path d="M50 72 Q64 84 78 72" fill="none" stroke="#831843" stroke-width="3.5" stroke-linecap="round"/>
+  <text x="64" y="118" text-anchor="middle" font-size="13" font-family="Nunito,sans-serif" font-weight="800" fill="#831843">A3</text>
+</svg>

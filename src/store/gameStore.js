@@ -3,8 +3,10 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { syncStorage } from '../lib/storage'
 import { SHOP_ITEMS } from '../data/shop'
 import { getUnit } from '../data/units'
+import { getDefaultUnlockedUnits, getUnitUnlockOrder } from '../modules/registry'
 
 const MAX_HEARTS = 5
+const DEFAULT_UNLOCKED = getDefaultUnlockedUnits()
 const XP_PER_CORRECT = 10
 const XP_PERFECT_BONUS = 5
 const GEMS_PER_LESSON = 3
@@ -48,7 +50,9 @@ export const useGameStore = create(
       streak: 0,
       lastPracticeDate: null,
       completedLessons: [], // lesson ids
-      unlockedUnits: ['saluti'],
+      unlockedUnits: DEFAULT_UNLOCKED,
+      /** 'classic' | 'rainbow' — LGBTQ+ friendly theme toggle */
+      theme: 'classic',
       badges: [],
       stats: {
         totalCorrect: 0,
@@ -98,6 +102,14 @@ export const useGameStore = create(
 
       setChildName(childName) {
         set({ childName })
+      },
+
+      setTheme(theme) {
+        const next = theme === 'rainbow' ? 'rainbow' : 'classic'
+        set({ theme: next })
+        if (typeof document !== 'undefined') {
+          document.documentElement.setAttribute('data-theme', next)
+        }
       },
 
       setParentPin(pin) {
@@ -226,11 +238,15 @@ export const useGameStore = create(
 
         if (isUnitTest && !already) {
           pushBadge('first-unit')
-          // Unlock next unit
-          const unitsOrder = ['saluti', 'famiglia', 'animali']
-          const idx = unitsOrder.indexOf(unitId)
-          if (idx >= 0 && idx < unitsOrder.length - 1) {
-            const nextId = unitsOrder[idx + 1]
+          // Unlock next unit in curriculum order (classic + modules)
+          const unitsOrder = getUnitUnlockOrder()
+          // Classic path only chains saluti → famiglia → animali
+          const classicOrder = ['saluti', 'famiglia', 'animali']
+          const chain =
+            classicOrder.includes(unitId) ? classicOrder : unitsOrder
+          const idx = chain.indexOf(unitId)
+          if (idx >= 0 && idx < chain.length - 1) {
+            const nextId = chain[idx + 1]
             if (!unlockedUnits.includes(nextId)) {
               unlockedUnits.push(nextId)
               unlockedUnit = nextId
@@ -306,7 +322,7 @@ export const useGameStore = create(
           streak: 0,
           lastPracticeDate: null,
           completedLessons: [],
-          unlockedUnits: ['saluti'],
+          unlockedUnits: DEFAULT_UNLOCKED,
           badges: [],
           stats: {
             totalCorrect: 0,
@@ -342,6 +358,7 @@ export const useGameStore = create(
         lastPracticeDate: s.lastPracticeDate,
         completedLessons: s.completedLessons,
         unlockedUnits: s.unlockedUnits,
+        theme: s.theme,
         badges: s.badges,
         stats: s.stats,
         ownedItems: s.ownedItems,
