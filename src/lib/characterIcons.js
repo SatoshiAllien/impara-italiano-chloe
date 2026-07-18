@@ -6,7 +6,15 @@
  * Supported extensions tried in order: .svg, .png, .webp, .jpg
  */
 
-const EXT_ORDER = ['svg', 'png', 'webp', 'jpg', 'jpeg']
+const EXT_ORDER = ['png', 'svg', 'webp', 'jpg', 'jpeg']
+
+/**
+ * Preferred extension per character (custom photos first).
+ * Manfredo main face: public/assets/manfredo/manfredo.png
+ */
+const PREFERRED_EXT = {
+  manfredo: 'png',
+}
 
 /** Canonical character keys → preferred public path (without extension) */
 export const CHARACTER_ICON_BASES = {
@@ -18,6 +26,10 @@ export const CHARACTER_ICON_BASES = {
   'alessandro-green': '/assets/alessandros/alessandro-2',
   'alessandro-pink': '/assets/alessandros/alessandro-3',
 }
+
+/** Main app / brand icon (Manfredo portrait) */
+export const APP_ICON_MANFREDO = '/assets/manfredo/manfredo.png'
+export const FAVICON_MANFREDO = '/favicon-manfredo.png'
 
 /** Fallback emoji when image fails or is missing */
 export const CHARACTER_EMOJI_FALLBACK = {
@@ -44,8 +56,8 @@ export function getCharacterIconUrl(characterId, opts = {}) {
   if (!base) return ''
   if (opts.ext) return `${base}.${opts.ext}`
   if (cache.has(characterId)) return cache.get(characterId)
-  // Default shipped asset is SVG
-  const url = `${base}.svg`
+  const ext = PREFERRED_EXT[characterId] || 'svg'
+  const url = `${base}.${ext}`
   cache.set(characterId, url)
   return url
 }

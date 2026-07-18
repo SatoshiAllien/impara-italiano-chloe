@@ -73,7 +73,7 @@ Sostituisci i file placeholder — **nessuna modifica al codice**:
 
 | Personaggio | Cartella | Nomi file accettati |
 |-------------|----------|---------------------|
-| Manfredo | `public/assets/manfredo/` | `manfredo.svg`, `manfredo.png`, `.webp`, `.jpg` |
+| Manfredo (**main app face**) | `public/assets/manfredo/` | `manfredo.png` (primary), also `manfredo.svg` / `.webp` / `.jpg` |
 | Alessandro Blu | `public/assets/alessandros/` | `alessandro-1.svg` / `.png` … |
 | Alessandro Verde | `public/assets/alessandros/` | `alessandro-2.svg` / `.png` … |
 | Alessandro Rosa | `public/assets/alessandros/` | `alessandro-3.svg` / `.png` … |
