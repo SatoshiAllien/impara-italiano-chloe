@@ -10,10 +10,13 @@ const EXT_ORDER = ['png', 'svg', 'webp', 'jpg', 'jpeg']
 
 /**
  * Preferred extension per character (custom photos first).
- * Manfredo main face: public/assets/manfredo/manfredo.png
+ * Manfredo: public/assets/manfredo/manfredo.png
+ * Alessandro (main companion): public/assets/alessandros/alessandro-1.png
  */
 const PREFERRED_EXT = {
   manfredo: 'png',
+  'alessandro-1': 'png',
+  'alessandro-blue': 'png',
 }
 
 /** Canonical character keys → preferred public path (without extension) */
@@ -27,9 +30,11 @@ export const CHARACTER_ICON_BASES = {
   'alessandro-pink': '/assets/alessandros/alessandro-3',
 }
 
-/** Main app / brand icon (Manfredo portrait) */
+/** Main brand icons (pair) */
 export const APP_ICON_MANFREDO = '/assets/manfredo/manfredo.png'
+export const APP_ICON_ALESSANDRO = '/assets/alessandros/alessandro-1.png'
 export const FAVICON_MANFREDO = '/favicon-manfredo.png'
+export const BRAND_ICONS = [APP_ICON_MANFREDO, APP_ICON_ALESSANDRO]
 
 /** Fallback emoji when image fails or is missing */
 export const CHARACTER_EMOJI_FALLBACK = {

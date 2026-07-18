@@ -4,7 +4,10 @@ import { useGameStore } from '../store/gameStore'
 import { useT } from '../lib/i18n'
 import { unlockAudio } from '../lib/audio'
 import ThemeToggle from './ThemeToggle'
-import { APP_ICON_MANFREDO } from '../lib/characterIcons'
+import {
+  APP_ICON_MANFREDO,
+  APP_ICON_ALESSANDRO,
+} from '../lib/characterIcons'
 
 const linkClass = ({ isActive }) =>
   `flex flex-col items-center justify-center gap-0.5 px-2 sm:px-3 py-2 rounded-2xl min-w-[56px] sm:min-w-[64px] font-bold text-[11px] sm:text-sm transition-all ${
@@ -43,20 +46,29 @@ export default function Layout() {
         <div className="mx-auto max-w-3xl flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
             {brandManfredo ? (
-              <img
-                src={APP_ICON_MANFREDO}
-                alt="Manfredo"
-                className="w-9 h-9 rounded-full object-cover ring-2 ring-pink-300 shadow-md shrink-0 animate-bounce-soft"
-                width={36}
-                height={36}
-              />
+              <span className="flex items-center -space-x-2 shrink-0" aria-hidden>
+                <img
+                  src={APP_ICON_MANFREDO}
+                  alt=""
+                  className="w-9 h-9 rounded-full object-cover ring-2 ring-pink-300 shadow-md z-10"
+                  width={36}
+                  height={36}
+                />
+                <img
+                  src={APP_ICON_ALESSANDRO}
+                  alt=""
+                  className="w-9 h-9 rounded-full object-cover ring-2 ring-sky-300 shadow-md"
+                  width={36}
+                  height={36}
+                />
+              </span>
             ) : (
               <span className="text-2xl animate-bounce-soft" aria-hidden>
                 🦉
               </span>
             )}
             <h1 className="truncate text-base sm:text-lg font-black text-chloe-purple">
-              {brandManfredo ? 'Manfredo' : 'Chloe'}
+              {brandManfredo ? 'Manfredo & Alessandro' : 'Chloe'}
             </h1>
           </div>
           <div className="flex items-center gap-1.5 sm:gap-3 text-sm font-extrabold">
@@ -106,13 +118,22 @@ export default function Layout() {
                 : base
             }}
           >
-            <img
-              src={APP_ICON_MANFREDO}
-              alt=""
-              className="w-6 h-6 rounded-full object-cover ring-1 ring-white shadow"
-              width={24}
-              height={24}
-            />
+            <span className="flex -space-x-1.5" aria-hidden>
+              <img
+                src={APP_ICON_MANFREDO}
+                alt=""
+                className="w-6 h-6 rounded-full object-cover ring-1 ring-white shadow z-10"
+                width={24}
+                height={24}
+              />
+              <img
+                src={APP_ICON_ALESSANDRO}
+                alt=""
+                className="w-6 h-6 rounded-full object-cover ring-1 ring-white shadow"
+                width={24}
+                height={24}
+              />
+            </span>
             {t('manfredo')}
           </NavLink>
           <NavLink to="/profile" className={linkClass}>

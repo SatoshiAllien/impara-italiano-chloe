@@ -24,14 +24,14 @@ export const CHARACTERS = {
   'alessandro-1': {
     id: 'alessandro-1',
     iconKey: 'alessandro-1',
-    name: t('Alessandro Blu', 'Alessandro Blue'),
-    role: t('Esperto di saluti', 'Greetings expert'),
+    name: t('Alessandro', 'Alessandro'),
+    role: t('Compagno di Manfredo · saluti', "Manfredo's companion · greetings"),
     emoji: '💙',
     color: '#38BDF8',
     gradient: 'linear-gradient(135deg, #38bdf8, #818cf8)',
     bio: t(
-      'Alessandro Blu ama dire ciao a tutti. Sa ogni saluto in italiano e in inglese!',
-      'Alessandro Blue loves saying hi to everyone. He knows every greeting in Italian and English!'
+      'Alessandro è il sorriso del team! Insieme a Manfredo insegna i saluti in italiano e in inglese.',
+      "Alessandro is the smile of the team! With Manfredo he teaches greetings in Italian and English."
     ),
     catchphrase: t('Ciao a tutti! 👋', 'Hi everyone! 👋'),
     pronouns: t('lui', 'he'),
