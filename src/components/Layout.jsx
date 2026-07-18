@@ -40,7 +40,7 @@ export default function Layout() {
       onPointerDown={unlockAudio}
     >
       {/* Top bar */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur border-b-2 border-violet-100 px-3 sm:px-4 py-2">
+      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b-2 border-violet-100 px-3 sm:px-4 py-2">
         <div className="mx-auto max-w-3xl flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
             {brandManfredo ? (
@@ -93,7 +93,7 @@ export default function Layout() {
 
       {/* Bottom nav — large touch targets */}
       <nav
-        className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur border-t-2 border-violet-100 pb-[env(safe-area-inset-bottom)]"
+        className="fixed bottom-0 inset-x-0 z-40 bg-white/85 backdrop-blur-md border-t-2 border-violet-100 pb-[env(safe-area-inset-bottom)]"
         aria-label="Navigazione principale"
       >
         <div className="mx-auto max-w-3xl flex items-stretch justify-around px-1 sm:px-2 py-2">

@@ -258,7 +258,7 @@ export default function Lesson() {
         )}
       </div>
 
-      <div className="sticky bottom-20 sm:bottom-24 pt-4 pb-2 bg-gradient-to-t from-[#fff9f0] via-[#fff9f0] to-transparent">
+      <div className="sticky bottom-20 sm:bottom-24 pt-4 pb-2 bg-gradient-to-t from-white/80 via-white/50 to-transparent backdrop-blur-[2px]">
         {phase === 'answer' ? (
           <button
             type="button"

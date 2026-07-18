@@ -43,10 +43,119 @@ body,
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background: linear-gradient(180deg, #f3f0ff 0%, #fff9f0 55%, #e0f2fe 100%);
+  /* Video background lives behind #root; keep body soft tint as fallback */
+  background: #2d1b3d;
   color: var(--color-chloe-ink);
   overflow-x: hidden;
   transition: background 0.35s ease;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+}
+
+/* ── Full-app Manfredo funny video background ── */
+.manfredo-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.manfredo-bg__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transform: scale(1.08);
+  filter: saturate(1.15) contrast(1.05);
+}
+
+.manfredo-bg__fallback {
+  background-size: cover;
+  background-position: center;
+}
+
+.manfredo-bg__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      165deg,
+      rgba(255, 249, 240, 0.72) 0%,
+      rgba(243, 240, 255, 0.68) 40%,
+      rgba(255, 228, 240, 0.7) 70%,
+      rgba(224, 242, 254, 0.75) 100%
+    ),
+    radial-gradient(
+      ellipse 80% 60% at 50% 40%,
+      rgba(255, 107, 157, 0.18),
+      transparent 70%
+    );
+}
+
+html[data-theme='rainbow'] .manfredo-bg__overlay {
+  background:
+    linear-gradient(
+      165deg,
+      rgba(255, 240, 245, 0.65) 0%,
+      rgba(254, 252, 232, 0.62) 25%,
+      rgba(236, 253, 245, 0.65) 50%,
+      rgba(239, 246, 255, 0.68) 75%,
+      rgba(245, 243, 255, 0.7) 100%
+    ),
+    radial-gradient(
+      ellipse 90% 70% at 50% 30%,
+      rgba(167, 139, 250, 0.22),
+      transparent 65%
+    );
+}
+
+.manfredo-bg__emoji {
+  position: absolute;
+  font-size: 1.75rem;
+  opacity: 0.55;
+  animation: float 4s ease-in-out infinite;
+  user-select: none;
+}
+
+.manfredo-bg__emoji--1 {
+  top: 12%;
+  left: 6%;
+  animation-delay: 0s;
+}
+.manfredo-bg__emoji--2 {
+  top: 22%;
+  right: 8%;
+  animation-delay: 0.8s;
+  font-size: 2rem;
+}
+.manfredo-bg__emoji--3 {
+  bottom: 28%;
+  left: 10%;
+  animation-delay: 1.4s;
+}
+.manfredo-bg__emoji--4 {
+  bottom: 18%;
+  right: 12%;
+  animation-delay: 2s;
+  font-size: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .manfredo-bg__video {
+    /* Still show a frame; freeze via poster if possible */
+    animation: none;
+  }
+  .manfredo-bg__emoji {
+    animation: none;
+    opacity: 0.35;
+  }
 }
 
 /* LGBTQ+ rainbow theme (opt-in via data-theme="rainbow" on <html>) */
@@ -216,10 +325,12 @@ html[data-theme="rainbow"] .btn-primary:active:not(:disabled) {
 }
 
 .card-kid {
-  background: white;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 1.5rem;
   border: 3px solid #e9e5ff;
-  box-shadow: 0 8px 24px rgba(124, 92, 252, 0.08);
+  box-shadow: 0 8px 24px rgba(124, 92, 252, 0.12);
 }
 
 /* Duolingo-style solid rounded CTA */

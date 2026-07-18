@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
 import Layout from './components/Layout'
+import ManfredoVideoBackground from './components/ManfredoVideoBackground'
 import Onboarding from './pages/Onboarding'
 import Home from './pages/Home'
 import Lesson from './pages/Lesson'
@@ -48,26 +49,30 @@ export default function App() {
 
   return (
     <BrowserRouter basename={basename}>
+      {/* Funny Manfredo video behind the entire app */}
+      <ManfredoVideoBackground />
       <Bootstrap />
-      <Routes>
-        <Route path="/onboarding" element={<Onboarding />} />
-        <Route
-          element={
-            <RequireOnboarded>
-              <Layout />
-            </RequireOnboarded>
-          }
-        >
-          <Route index element={<Home />} />
-          <Route path="manfredo" element={<Manfredo />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="shop" element={<Shop />} />
-          <Route path="parents" element={<Parents />} />
-          <Route path="lesson/:unitId/:lessonId" element={<Lesson />} />
-          <Route path="lesson-complete" element={<LessonComplete />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <div className="relative z-[1] min-h-dvh">
+        <Routes>
+          <Route path="/onboarding" element={<Onboarding />} />
+          <Route
+            element={
+              <RequireOnboarded>
+                <Layout />
+              </RequireOnboarded>
+            }
+          >
+            <Route index element={<Home />} />
+            <Route path="manfredo" element={<Manfredo />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="shop" element={<Shop />} />
+            <Route path="parents" element={<Parents />} />
+            <Route path="lesson/:unitId/:lessonId" element={<Lesson />} />
+            <Route path="lesson-complete" element={<LessonComplete />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   )
 }
