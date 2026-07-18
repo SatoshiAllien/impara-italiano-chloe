@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Lock, CheckCircle2, Star, Sparkles } from 'lucide-react'
 import Chloe from '../components/Chloe'
 import CharacterAvatar from '../components/CharacterAvatar'
+import ManfredoBrand from '../components/ManfredoBrand'
 import ProgressBar from '../components/ProgressBar'
 import { UNITS, getUnitProgress } from '../data/units'
 import { useGameStore } from '../store/gameStore'
@@ -53,25 +54,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* New module card — Manfredo & Alessandros */}
+      {/* Main brand — funny Manfredo video module */}
       <Link to="/manfredo" className="module-card-rainbow block p-4 sm:p-5">
         <div className="relative flex flex-col sm:flex-row items-center gap-4">
-          <div className="flex -space-x-3">
-            <CharacterAvatar characterId="manfredo" size="md" />
-            <CharacterAvatar characterId="alessandro-1" size="sm" className="mt-4" />
-            <CharacterAvatar characterId="alessandro-2" size="sm" className="mt-2" />
-            <CharacterAvatar characterId="alessandro-3" size="sm" className="mt-4" />
-          </div>
+          <ManfredoBrand
+            size="lg"
+            showBuddy
+            fun
+            showCaption
+            caption={
+              uiLang === 'en'
+                ? 'Manfredo: Learn & laugh! 🤣'
+                : 'Manfredo: impariamo ridendo! 🤣'
+            }
+          />
           <div className="flex-1 text-center sm:text-left min-w-0">
             <p className="font-extrabold text-sm text-pink-600 flex items-center justify-center sm:justify-start gap-1">
               <Sparkles className="w-4 h-4" />
-              {uiLang === 'en' ? 'New module' : 'Nuovo modulo'} · LGBTQ+ 🏳️‍🌈
+              {uiLang === 'en' ? 'Main brand · funny video' : 'Brand principale · video'}{' '}
+              · LGBTQ+ 🏳️‍🌈
             </p>
             <h3 className="text-xl sm:text-2xl font-black text-chloe-ink truncate">
               {pick(manfredoModule.title, uiLang)}
             </h3>
             <p className="font-bold text-chloe-ink/65 text-sm mt-0.5">
-              {pick(manfredoModule.description, uiLang)}
+              {uiLang === 'en'
+                ? 'Tap Manfredo for silly sound · then start lessons!'
+                : 'Tocca Manfredo per il suono buffo · poi inizia!'}
             </p>
             <div className="mt-2 max-w-xs mx-auto sm:mx-0">
               <ProgressBar
@@ -82,9 +91,14 @@ export default function Home() {
                 color="bg-gradient-to-r from-pink-400 via-amber-300 to-sky-400"
               />
             </div>
+            <div className="flex justify-center sm:justify-start gap-2 mt-2">
+              <CharacterAvatar characterId="alessandro-1" size="xs" />
+              <CharacterAvatar characterId="alessandro-2" size="xs" />
+              <CharacterAvatar characterId="alessandro-3" size="xs" />
+            </div>
           </div>
           <span className="btn-kid btn-rainbow px-4 py-2 text-sm text-white shrink-0">
-            {t('openModule')}
+            {t('openModule')} 🎬
           </span>
         </div>
       </Link>

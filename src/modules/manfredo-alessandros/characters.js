@@ -10,16 +10,20 @@ export const CHARACTERS = {
     id: 'manfredo',
     iconKey: 'manfredo',
     name: t('Manfredo', 'Manfredo'),
-    role: t('Guida arcobaleno', 'Rainbow guide'),
-    emoji: '🌈',
+    role: t('Star buffa · brand principale', 'Funny star · main brand'),
+    emoji: '🎬',
     color: '#FF6B9D',
     gradient: 'linear-gradient(135deg, #ff6b9d, #c084fc, #38bdf8, #4ade80)',
     bio: t(
-      'Manfredo è curioso, gentile e adora le lingue. Insegna italiano e inglese con sorrisi e colori!',
-      'Manfredo is curious, kind, and loves languages. He teaches Italian and English with smiles and color!'
+      'Manfredo è la star del video! Curioso, gentile e un po’ clown: insegna le lingue ridendo.',
+      'Manfredo is the video star! Curious, kind and a bit of a clown: he teaches languages with laughs.'
     ),
-    catchphrase: t('Impariamo insieme, con gioia! 🌈', "Let's learn together, with joy! 🌈"),
+    catchphrase: t(
+      'Impariamo ridendo! 🤣🌈',
+      "Let's learn while laughing! 🤣🌈"
+    ),
     pronouns: t('lui / loro (come preferisci)', 'he / they (as you prefer)'),
+    brandVideo: true,
   },
   'alessandro-1': {
     id: 'alessandro-1',

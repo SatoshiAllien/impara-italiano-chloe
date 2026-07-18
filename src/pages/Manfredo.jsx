@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CheckCircle2, Lock, MessageCircle, BookOpen, Star, Sparkles } from 'lucide-react'
 import CharacterAvatar from '../components/CharacterAvatar'
+import ManfredoBrand from '../components/ManfredoBrand'
 import ProgressBar from '../components/ProgressBar'
 import manfredoModule from '../modules/manfredo-alessandros'
 import { getUnitProgress } from '../data/units'
@@ -45,18 +46,33 @@ export default function Manfredo() {
           style={{ background: manfredoModule.gradient }}
           aria-hidden
         />
-        <div className="relative p-5 sm:p-6 text-white space-y-3">
-          <div className="flex items-start gap-3">
-            <CharacterAvatar characterId="manfredo" size="lg" />
-            <div className="min-w-0 flex-1">
-              <p className="font-extrabold text-white/90 text-sm flex items-center gap-1">
-                <Sparkles className="w-4 h-4" /> {t('manfredoModule')}
+        <div className="relative p-5 sm:p-6 text-white space-y-4">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+            <ManfredoBrand
+              size="xl"
+              showBuddy
+              fun
+              showCaption
+              caption={
+                uiLang === 'en'
+                  ? '⭐ Star of the show · tap for sound!'
+                  : '⭐ Star dello show · tocca per l’audio!'
+              }
+            />
+            <div className="min-w-0 flex-1 text-center sm:text-left">
+              <p className="font-extrabold text-white/90 text-sm flex items-center justify-center sm:justify-start gap-1">
+                <Sparkles className="w-4 h-4" /> {t('manfredoModule')} · 🎬
               </p>
               <h2 className="text-2xl sm:text-3xl font-black drop-shadow-sm">
                 {pick(intro.title, uiLang)}
               </h2>
               <p className="font-bold text-white/95 mt-1">
                 {pick(intro.subtitle, uiLang)}
+              </p>
+              <p className="mt-2 font-extrabold text-amber-100 text-sm animate-bounce-soft">
+                {uiLang === 'en'
+                  ? 'Manfredo video = main brand. Let’s goof & learn! 😂'
+                  : 'Il video di Manfredo è il brand. Impariamo ridendo! 😂'}
               </p>
             </div>
           </div>

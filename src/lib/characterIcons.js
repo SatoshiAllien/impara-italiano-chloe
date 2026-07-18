@@ -30,9 +30,11 @@ export const CHARACTER_ICON_BASES = {
   'alessandro-pink': '/assets/alessandros/alessandro-3',
 }
 
-/** Main brand icons (pair) */
+/** Main brand icons (pair) + funny looping brand video */
 export const APP_ICON_MANFREDO = '/assets/manfredo/manfredo.png'
 export const APP_ICON_ALESSANDRO = '/assets/alessandros/alessandro-1.png'
+/** Drop-in brand video: public/assets/manfredo/manfredo-brand.mp4 */
+export const MANFREDO_BRAND_VIDEO = '/assets/manfredo/manfredo-brand.mp4'
 export const FAVICON_MANFREDO = '/favicon-manfredo.png'
 export const BRAND_ICONS = [APP_ICON_MANFREDO, APP_ICON_ALESSANDRO]
 
