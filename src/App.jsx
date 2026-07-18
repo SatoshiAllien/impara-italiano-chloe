@@ -43,8 +43,11 @@ function Bootstrap() {
 }
 
 export default function App() {
+  // Works on GitHub Pages (/impara-italiano-chloe/) and local dev (/)
+  const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || undefined
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Bootstrap />
       <Routes>
         <Route path="/onboarding" element={<Onboarding />} />
